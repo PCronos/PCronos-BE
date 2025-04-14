@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+#  spring-app:
+#    build:
+#      context: .
+#      dockerfile: ./Dockerfile
+#    container_name: spring-boot-app
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      # Application & Server configs
+#      - SPRING_APPLICATION_NAME=ChillShaker
+#      - SERVER_PORT=8080
+#      - API_BASE_URL=/api/v1
+#
+#      # Database configs
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/chillshaker
+#      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+#      - SPRING_DATASOURCE_USERNAME=root
+#      - SPRING_DATASOURCE_PASSWORD=12345
+#      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+#      - SPRING_JPA_DEFER_DATASOURCE_INITIALIZATION=true
+#      - SPRING_SQL_INIT_MODE=always
+#
+#      # Redis configs
+#      - SPRING_DATA_REDIS_HOST=${SPRING_DATA_REDIS_HOST}
+#      - SPRING_DATA_REDIS_PORT=${SPRING_DATA_REDIS_PORT}
+#
+#      # JWT configs
+#      - JWT_JWT_SIGNATURE_KEY=${JWT_SIGNATURE_KEY}
+#      - JWT_ACCESSIBLE_DURATION=60
+#      - JWT_REFRESHABLE_DURATION=2
+#      - JWT_ACCESSIBLE_DURATION_TYPE=MINUTES
+#      - JWT_REFRESHABLE_DURATION_TYPE=DAYS
+#
+#      # VNPay configs
+#      - VNPAY_HASH_SECRET=${VNPAY_HASH_SECRET}
+#      - VNPAY_TMN_CODE=${VNPAY_TMN_CODE}
+#      - VNPAY_VERSION=${VNPAY_VERSION}
+#      - VNPAY_PAYMENT_URL=${VNPAY_PAYMENT_URL}
+#      - VNPAY_RETURN_URL=${VNPAY_RETURN_URL}
+#
+#      # Payment URLs
+#      - PAYMENT_SUCCESS_URL=${PAYMENT_SUCCESS_RETURN_URL}
+#      - PAYMENT_ERROR_URL=${PAYMENT_ERROR_RETURN_URL}
+#
+#      # Java options
+#      - JAVA_OPTS=-Xms256m -Xmx512m
+#      - SPRING_PROFILES_ACTIVE=prod
+#
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#      redis:
+#        condition: service_started
+#    networks:
+#      - app-network
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres_server
+    environment:
+      POSTGRES_DB: pcronos
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 12345
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d pcronos"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  redis:
+    image: redis:latest
+    container_name: redis_server
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/var/lib/redis/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
