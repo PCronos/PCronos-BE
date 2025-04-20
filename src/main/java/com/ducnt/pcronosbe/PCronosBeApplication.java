@@ -9,5 +9,4 @@ public class PCronosBeApplication {
     public static void main(String[] args) {
         SpringApplication.run(PCronosBeApplication.class, args);
     }
-
 }
