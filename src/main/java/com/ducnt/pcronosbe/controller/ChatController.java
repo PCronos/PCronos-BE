@@ -8,7 +8,9 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,24 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("${api.base-url}")
 @Tag(name = "Chat API", description = "API for chat")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ChatController {
-    private final ChatClient chatClient;
-    public ChatController(ChatClient.Builder clientBuilder) {
-        this.chatClient = clientBuilder.build();
-    }
+    OllamaChatModel ollamaChatModel;
 
     @PostMapping("/chat")
     @Operation(summary = "chat", description = "chat")
     public ApiResponse chat(@RequestBody ChatRequest request) {
         try {
-            String response = chatClient
-                    .prompt("Tìm kiếm bằng tiếng việt món đồ sau: " + request.getMessage())
-                    .call()
-                    .content();
+            var prompt = new Prompt(request.getMessage());
+            ChatResponse response = ollamaChatModel.call(prompt);
 
             return ApiResponse
                     .builder()
-                    .message(response)
+                    .data(response)
                     .build();
         } catch (Exception e) {
             return ApiResponse
