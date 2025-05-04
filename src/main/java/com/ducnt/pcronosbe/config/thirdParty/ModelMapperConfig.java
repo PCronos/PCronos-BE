@@ -1,4 +1,4 @@
-package com.ducnt.pcronosbe.config;
+package com.ducnt.pcronosbe.config.thirdParty;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

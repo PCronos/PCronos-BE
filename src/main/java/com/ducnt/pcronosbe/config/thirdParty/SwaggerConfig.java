@@ -1,4 +1,4 @@
-package com.ducnt.pcronosbe.config;
+package com.ducnt.pcronosbe.config.thirdParty;
 
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.OpenAPI;

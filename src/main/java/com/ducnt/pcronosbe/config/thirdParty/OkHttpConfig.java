@@ -1,4 +1,4 @@
-package com.ducnt.pcronosbe.config;
+package com.ducnt.pcronosbe.config.thirdParty;
 
 import okhttp3.OkHttpClient;
 import org.springframework.context.annotation.Bean;
