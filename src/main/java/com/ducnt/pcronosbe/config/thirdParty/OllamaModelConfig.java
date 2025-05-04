@@ -1,4 +1,4 @@
-package com.ducnt.pcronosbe.config;
+package com.ducnt.pcronosbe.config.thirdParty;
 
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.ollama.api.OllamaApi;

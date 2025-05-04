@@ -1,22 +1,23 @@
-package com.ducnt.pcronosbe.dto.product;
+package com.ducnt.pcronosbe.dto.authentication;
 
-import jakarta.persistence.Column;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductDTO {
-    String name;
-    String description;
-    double price;
-    String vendor;
+public class RegisterRequest {
+    String fullName;
+    String email;
+    String password;
+    String phone;
+    String address;
+    LocalDate dob;
     String image;
-    String canonical;
-    String bodyHtml;
 }
