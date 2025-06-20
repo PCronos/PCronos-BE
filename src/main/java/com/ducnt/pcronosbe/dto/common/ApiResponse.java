@@ -1,5 +1,6 @@
 package com.ducnt.pcronosbe.dto.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class ApiResponse {
@@ -15,4 +17,5 @@ public class ApiResponse {
     String traceId;
     String message;
     Object data;
+    Object result;
 }

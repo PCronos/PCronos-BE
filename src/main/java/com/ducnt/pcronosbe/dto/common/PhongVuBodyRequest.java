@@ -14,4 +14,5 @@ public class PhongVuBodyRequest {
     int pageSize = 10;
     String slug = "/c/may-tinh-de-ban";
     boolean isNeedFeaturedProducts = false;
+    int limit = 159;
 }

@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PhongVuProductDataResponse {
+    String sku;
     String name;
     String imageUrl;
     String canonical;

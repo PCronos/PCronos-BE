@@ -13,10 +13,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductDTO {
     String name;
-    String description;
+    String shortDescription;
     double price;
     String vendor;
-    String image;
+    String avatar;
     String canonical;
     String bodyHtml;
 }
